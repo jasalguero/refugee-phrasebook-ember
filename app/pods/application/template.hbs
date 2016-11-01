@@ -1,0 +1,66 @@
+<div class="rpb-container">
+    <div class="menu">
+        <div class="menu-item">
+            LANGUAGES
+        </div>
+        <div class="menu-item">
+            ICONS
+        </div>
+        <div class="menu-item">
+            PHRASES
+        </div>
+        <div class="menu-item">
+            LINKS
+        </div>
+        <div class="menu-item">
+            EXTRAS
+        </div>
+    </div>
+
+
+    <div class="tab-wrap">
+        <input type="radio" name="tabs" id="tab1" checked>
+        <div class="tab-label-content" id="tab1-content">
+            <label for="tab1">LANGUAGES</label>
+            <div class="tab-content">
+                {% include "_templates/languages.nunjucks" %}
+            </div>
+        </div>
+
+        <input type="radio" name="tabs" id="tab2">
+        <div class="tab-label-content" id="tab2-content">
+            <label for="tab2">ICONS</label>
+            <div class="tab-content">
+                {% include "_templates/icons.nunjucks" %}
+            </div>
+        </div>
+
+        <input type="radio" name="tabs" id="tab3">
+        <div class="tab-label-content" id="tab3-content">
+            <label for="tab3">PHRASES</label>
+            <div class="tab-content">
+                {% include "_templates/phrases.nunjucks" %}
+            </div>
+        </div>
+
+        <input type="radio" name="tabs" id="tab4">
+        <div class="tab-label-content" id="tab4-content">
+            <label for="tab4">LINKS</label>
+            <div class="tab-content">
+                {% include "_templates/links.nunjucks" %}
+            </div>
+        </div>
+
+        <input type="radio" name="tabs" id="tab5">
+        <div class="tab-label-content" id="tab5-content">
+            <label for="tab5">EXTRAS</label>
+            <div class="tab-content">
+                {% include "_templates/extras.nunjucks" %}
+            </div>
+        </div>
+
+        <div class="slide"></div>
+    </div>
+    {{outlet}}
+</div>
+

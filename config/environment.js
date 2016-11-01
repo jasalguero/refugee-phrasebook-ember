@@ -2,7 +2,8 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'refugee-phrasebook-ember',
+    modulePrefix: 'refugee-phrasebook',
+    podModulePrefix: 'refugee-phrasebook/pods',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
