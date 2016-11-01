@@ -1,6 +1,6 @@
 /* jshint node: true */
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   var ENV = {
     modulePrefix: 'refugee-phrasebook',
     podModulePrefix: 'refugee-phrasebook/pods',
@@ -19,6 +19,10 @@ module.exports = function(environment) {
     },
 
     APP: {
+      GAPI_CLIENT_ID: 'AIzaSyDrgM9k7R2XDXWECt4J0L7GAYQ7OxGpRSc',
+      GAPI_SOURCE_URL: 'https://apis.google.com/js/client.js?onload=gapiReady',
+      GAPI_SHEETS_URL: 'https://sheets.googleapis.com/$discovery/rest?version=v4'
+
       // Here you can pass flags/options to your application instance
       // when it is created
     }
