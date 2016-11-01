@@ -1,1 +1,11 @@
-@import "_tab_menu";
+@import "vars";
+@import "tab_menu";
+
+
+html, body {
+  width: 100%;
+}
+
+label, p, a, h1, div {
+  font-family: Roboto, sans-serif;
+}
