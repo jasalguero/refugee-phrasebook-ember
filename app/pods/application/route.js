@@ -5,6 +5,7 @@ const {get, inject} = Ember;
 export default Ember.Route.extend({
 
   gapi: inject.service(),
+  sheetsApi: inject.service('sheets-api'),
 
   beforeModel() {
     return get(this, 'gapi').initialize().then(() => {
@@ -13,6 +14,8 @@ export default Ember.Route.extend({
   },
 
   model() {
-    console.log('loading model');
+    return get(this,'sheetsApi').getAvailableLanguages().then((result) => {
+      console.log(`------ languages retrieved:`, result);
+    });
   }
 });

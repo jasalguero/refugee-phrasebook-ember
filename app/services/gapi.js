@@ -27,7 +27,9 @@ export default Ember.Service.extend({
 
   loadSheetsAPI() {
     gapi.client.setApiKey(GAPI_CLIENT_ID);
-    return gapi.client.load(GAPI_SHEETS_URL).then(this.setSheetClientReady.bind(this), (error) => {console.error('ERROR HAPPENED -> ', error);});
+    return gapi.client.load(GAPI_SHEETS_URL).then(this.setSheetClientReady.bind(this), (error) => {
+      console.error('ERROR HAPPENED -> ', error);
+    });
   },
 
   setSheetClientReady() {
@@ -38,10 +40,8 @@ export default Ember.Service.extend({
   initialize() {
     return new RSVP.Promise((resolve, reject) => {
       RSVP.Promise.resolve($.getScript(GAPI_SOURCE_URL)).then(() => {
-        // this.loadSheetsAPI();
         gapi.load('client', () => {
           this.loadSheetsAPI().then(() => {
-            console.log('all loaded');
             resolve();
           });
         });
