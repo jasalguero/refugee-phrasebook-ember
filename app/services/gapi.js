@@ -2,7 +2,7 @@ import Ember from "ember";
 import config from "refugee-phrasebook/config/environment";
 
 const {GAPI_CLIENT_ID, GAPI_SOURCE_URL, GAPI_SHEETS_URL}= config.APP;
-const {$, debug} = Ember;
+const {$, debug, RSVP} = Ember;
 
 export default Ember.Service.extend({
   gapiReady: false,
@@ -10,6 +10,7 @@ export default Ember.Service.extend({
 
   init() {
     this._super();
+
     if (window.gapi) {
       // gapi client is already loaded
       return this.setReady();
@@ -22,12 +23,11 @@ export default Ember.Service.extend({
   setReady() {
     debug('GAPI client loaded');
     this.set('gapiReady', true);
-    this.loadSheetsAPI();
   },
 
   loadSheetsAPI() {
     gapi.client.setApiKey(GAPI_CLIENT_ID);
-    gapi.client.load(GAPI_SHEETS_URL).then(this.setSheetClientReady.bind(this), (error) => {console.error('ERROR HAPPENED -> ', error);});
+    return gapi.client.load(GAPI_SHEETS_URL).then(this.setSheetClientReady.bind(this), (error) => {console.error('ERROR HAPPENED -> ', error);});
   },
 
   setSheetClientReady() {
@@ -35,7 +35,17 @@ export default Ember.Service.extend({
     this.set('sheetClientReady', true);
   },
 
-  fetchGapi() {
-    $.getScript(GAPI_SOURCE_URL);
+  initialize() {
+    return new RSVP.Promise((resolve, reject) => {
+      RSVP.Promise.resolve($.getScript(GAPI_SOURCE_URL)).then(() => {
+        // this.loadSheetsAPI();
+        gapi.load('client', () => {
+          this.loadSheetsAPI().then(() => {
+            console.log('all loaded');
+            resolve();
+          });
+        });
+      });
+    });
   }
 });

@@ -1,6 +1,7 @@
 export function initialize(appInstance) {
   let gapiService = appInstance.lookup('service:gapi');
-  gapiService.fetchGapi();
+  // app.deferReadiness();
+  // gapiService.fetchGapi();
 }
 
 export default {

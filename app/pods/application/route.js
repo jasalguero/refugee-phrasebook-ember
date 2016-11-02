@@ -1,8 +1,18 @@
-import Ember from 'ember';
+import Ember from "ember";
+
+const {get, inject} = Ember;
 
 export default Ember.Route.extend({
 
+  gapi: inject.service(),
+
   beforeModel() {
-    this.transitionTo('languages');
+    return get(this, 'gapi').initialize().then(() => {
+      this.transitionTo('languages');
+    });
+  },
+
+  model() {
+    console.log('loading model');
   }
 });
