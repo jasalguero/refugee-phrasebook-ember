@@ -21,16 +21,19 @@
       left: 0;
     }
     &.active:nth-child(2) ~ span, &:nth-child(2):hover ~ span {
-      left: 20%;
+      left: 16.6%;
     }
     &.active:nth-child(3) ~ span, &:nth-child(3):hover ~ span {
-      left: 40%;
+      left: 33.2%;
     }
     &.active:nth-child(4) ~ span, &:nth-child(4):hover ~ span {
-      left: 60%;
+      left: 49.8%;
     }
     &.active:nth-child(5) ~ span, &:nth-child(5):hover ~ span {
-      left: 80%;
+      left: 66.4%;
+    }
+    &.active:nth-child(6) ~ span, &:nth-child(6):hover ~ span {
+      left: 83%;
     }
   }
 
@@ -38,7 +41,7 @@
     position: absolute;
     display: block;
     bottom: 0;
-    width: 20%;
+    width: 16.6%;
     height: 4px;
     background: $black;
 

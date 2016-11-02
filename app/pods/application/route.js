@@ -9,13 +9,15 @@ export default Ember.Route.extend({
 
   beforeModel() {
     return get(this, 'gapi').initialize().then(() => {
-      this.transitionTo('languages');
+      this.transitionTo('docs');
     });
   },
 
   model() {
     return get(this,'sheetsApi').getAvailableLanguages().then((result) => {
-      console.log(`------ languages retrieved:`, result);
+      return {
+        languages: result
+      };
     });
   }
 });

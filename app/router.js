@@ -12,6 +12,7 @@ Router.map(function () {
   this.route('phrases');
   this.route('links');
   this.route('extras');
+  this.route('docs');
 });
 
 export default Router;
