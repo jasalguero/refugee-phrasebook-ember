@@ -1,5 +1,6 @@
 @import "vars";
 @import "tab_menu";
+@import "sections";
 
 
 html, body {
@@ -8,4 +9,10 @@ html, body {
 
 label, p, a, h1, div {
   font-family: Roboto, sans-serif;
+}
+
+.application-loader .loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -13,6 +13,7 @@ Router.map(function () {
   this.route('links');
   this.route('extras');
   this.route('docs');
+  this.route('loading');
 });
 
 export default Router;
