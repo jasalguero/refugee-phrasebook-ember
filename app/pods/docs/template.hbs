@@ -2,12 +2,18 @@
     <h1>DOCUMENTS</h1>
 </div>
 
-<div class="ui form">
-    <div class="grouped inline fields">
-        {{#each-in documents as |name doc|}}
-            <div class="field">
-                {{ui-radio name="document" label=name value=name onChange=(action 'documentSelected' name)}}
+<div class="ui one column grid">
+    <div class="row">
+        <div class="ui form column">
+            <div class="grouped inline fields">
+                {{#each-in documents as |name doc|}}
+                    <div class="field">
+                        {{ui-radio name="document" label=name value=name current=selectedDocument onChange=(action 'select' name)}}
+                    </div>
+                {{/each-in}}
             </div>
-        {{/each-in}}
+        </div>
     </div>
 </div>
+<button class="ui right floated button black" {{action 'next'}}>Next</button>
+

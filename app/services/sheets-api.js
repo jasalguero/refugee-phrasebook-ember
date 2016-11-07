@@ -18,6 +18,12 @@ export default Ember.Service.extend({
     });
   },
 
+  /**
+   * Converts the google api result into an a arrays of languages per documents
+   * @param results
+   * @param docIds
+   * @returns {Object} {DOC_NAME: [{column: x, label: '', code: ''}]}
+   */
   processLanguagesResponse(results, docIds) {
     let languages = {};
 
@@ -30,16 +36,8 @@ export default Ember.Service.extend({
           label: value[0],
           code: value.length > 1 ? value[1] : null,
         };
-      }));
+      })).slice(2, result.values.length + 1);
     });
-
-    // get all the values except the first two columns that don't hold language name
-    // for (let i = 0; i < result.values.length; i++) {
-    //   RPB.CONFIG.LANGUAGES[document][i] = {
-    //     id: i,
-    //     label: (response.result.values[i].length > 0 && i > 1) ? response.result.values[i][0] : null
-    //   };
-    // }
     return languages;
   }
 });

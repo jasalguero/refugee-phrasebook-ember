@@ -1,1 +1,16 @@
-languages
+<div class="section-title">
+    <h1>DOCUMENTS</h1>
+</div>
+
+<div class="ui form grid">
+    {{#each selectedDocLanguages as |language|}}
+        {{ui-checkbox
+                label=language.label
+                checked=language.isSelected
+                onChange=(action (mut language.isSelected))
+                class="four wide column"}}
+    {{/each}}
+</div>
+<button class="ui right floated button black" {{action 'next'}}>Next</button>
+<button class="ui right floated button black" {{action 'prev'}}>Prev</button>
+

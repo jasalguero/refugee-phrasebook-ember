@@ -14,8 +14,13 @@ export default Ember.Controller.extend({
 
   actions: {
     /** set a new document as selected*/
-    documentSelected(document) {
+    select(document) {
       set(this, 'selectedDocument', document);
+    },
+
+    /** go to next section */
+    next() {
+      this.transitionToRoute('languages');
     }
   }
 });
