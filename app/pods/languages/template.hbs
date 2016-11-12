@@ -1,16 +1,22 @@
-<div class="section-title">
-    <h1>DOCUMENTS</h1>
-</div>
+<div class="languages-section">
+    <div class="ui form grid">
+        <div class="row">
+            <div class="section-title">
+                <h1>DOCUMENTS</h1>
+            </div>
+        </div>
 
-<div class="ui form grid">
-    {{#each selectedDocLanguages as |language|}}
-        {{ui-checkbox
-                label=language.label
-                checked=language.isSelected
-                onChange=(action (mut language.isSelected))
-                class="four wide column"}}
-    {{/each}}
+        {{#each availableLanguages as |language|}}
+            {{ui-checkbox
+                    label=language.label
+                    checked=language.isSelected
+                    onChange=(action (mut language.isSelected))
+                    class="four wide column"}}
+        {{/each}}
+        <div class="sixteen wide column">
+            <button class="ui right floated button black" {{action 'next'}}>Next</button>
+            <button class="ui right floated button black" {{action 'prev'}}>Prev</button>
+        </div>
+    </div>
 </div>
-<button class="ui right floated button black" {{action 'next'}}>Next</button>
-<button class="ui right floated button black" {{action 'prev'}}>Prev</button>
 
