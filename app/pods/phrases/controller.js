@@ -7,15 +7,23 @@ const {get, set, inject, computed} = Ember;
 export default Ember.Controller.extend({
   /** dependencies */
   applicationController: inject.controller('application'),
-  selectedDocument: computed.alias('applicationController.selectedDocument'),
-  selectedLanguages: computed.alias('applicationController.allLanguages'),
+  languagesController: inject.controller('languages'),
+  selectedDocument: computed.oneWay('applicationController.selectedDocument'),
+  documentObjects: computed.alias('applicationController.documents'),
+  selectedLanguages: computed.oneWay('languagesController.selectedLanguages'),
 
   /** available documents */
   documents: DOCUMENTS,
 
-  /** languagse for selected document **/
-  selectedDocLanguages: computed('selectedDocument', 'allLanguages', function() {
-    return get(this, 'allLanguages')[get(this, 'selectedDocument')];
+  /** phrases for selected document **/
+  availablePhrases: computed('selectedDocument', 'documentObjects.@each.phrases', 'selectedLanguages.[]', function() {
+    let selectedLanguagesIndexes = get(this, 'selectedLanguages').map(lang => lang.column);
+
+    return get(this, `documentObjects.${get(this, 'selectedDocument')}.phrases`).map(phrases => {
+      return phrases.filter((phrase, index) => {
+        return selectedLanguagesIndexes.includes(index);
+      });
+    });
   }),
 
   actions: {

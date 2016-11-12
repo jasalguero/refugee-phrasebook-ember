@@ -32,6 +32,7 @@ export default {
     },
   },
 
+  STARTING_PHRASE_ROW: 5,
 
   // // Target spreadsheets
   // SPREADSHEETS: {

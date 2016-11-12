@@ -8,14 +8,14 @@ export default Ember.Controller.extend({
   /** dependencies */
   applicationController: inject.controller('application'),
   selectedDocument: computed.alias('applicationController.selectedDocument'),
-  allLanguages: computed.alias('applicationController.allLanguages'),
+  documentObjects: computed.alias('applicationController.documents'),
 
   /** available documents */
   documents: DOCUMENTS,
 
   /** languages for selected document **/
-  availableLanguages: computed('selectedDocument', 'allLanguages', function() {
-    return get(this, 'allLanguages')[get(this, 'selectedDocument')];
+  availableLanguages: computed('selectedDocument', 'documentObjects.@each.languages', function() {
+    return get(this, `documentObjects.${get(this, 'selectedDocument')}.languages`);
   }),
 
   /** selected languages for this document **/
@@ -31,11 +31,6 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
-    /** set a new document as selected */
-    documentSelected(document) {
-      set(this, 'selectedDocument', document);
-    },
-
     /** go to next section */
     next() {
       this.transitionToRoute('phrases');

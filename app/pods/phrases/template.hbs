@@ -5,8 +5,24 @@
                 <h1>PHRASES</h1>
             </div>
         </div>
-
-
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                {{#each selectedLanguages as |language|}}
+                    <th>{{language.label}}</th>
+                {{/each}}
+            </tr>
+            </thead>
+            <tbody>
+            {{#each availablePhrases as |phrases|}}
+                <tr>
+                    {{#each phrases as |phrase|}}
+                        <td>{{phrase}}</td>
+                    {{/each}}
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
         <div class="sixteen wide column">
             <button class="ui right floated button black" {{action 'next'}}>Next</button>
             <button class="ui right floated button black" {{action 'prev'}}>Prev</button>
