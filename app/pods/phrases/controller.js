@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
       return phrases.filter((phrase, index) => {
         return selectedLanguagesIndexes.includes(index);
       });
-    });
+    }).map(phrases => {set(phrases, 'isSelected', true); return phrases;});
   }),
 
   actions: {

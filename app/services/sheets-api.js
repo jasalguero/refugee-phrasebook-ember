@@ -112,7 +112,16 @@ export default Ember.Service.extend({
               phrases.push(cell);
             }
           });
-          phrasesCollection.push(phrases);
+
+
+          // make sure is not an empty row
+          if (phrases.reduce((hasValues, phrase) => {
+              return hasValues || !Ember.isNone(phrase);
+            }, false)) {
+            phrasesCollection.push(phrases);
+          } else {
+            console.log('isEmpty', phrases);
+          }
         }
       });
 

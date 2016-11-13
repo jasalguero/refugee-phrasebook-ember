@@ -1,5 +1,23 @@
 .languages-section {
-  .column.ui.checkbox{
+  .column.ui.checkbox {
     padding: 5px;
+  }
+
+  .table-container {
+    overflow-x: auto;
+    font-size: 13px;
+
+    .ui.table {
+      thead tr:first-child > th:first-child, tr:first-child > th:last-child {
+        border-radius: 0;
+      }
+      th {
+        background-color: $black;
+        background-image: none;
+        color: $white;
+        border-radius: 0;
+        text-transform: uppercase;
+      }
+    }
   }
 }

@@ -2,27 +2,34 @@
     <div class="ui form grid">
         <div class="row">
             <div class="section-title">
-                <h1>PHRASES</h1>
+                <h1>PHRASES</h1> <div class="subtitle">from {{selectedDocument}} document</div>
             </div>
         </div>
-        <table class="ui celled table">
-            <thead>
-            <tr>
-                {{#each selectedLanguages as |language|}}
-                    <th>{{language.label}}</th>
-                {{/each}}
-            </tr>
-            </thead>
-            <tbody>
-            {{#each availablePhrases as |phrases|}}
+        <div class="sixteen wide fixed selectable column striped table-container">
+            <table class="ui celled compact table">
+                <thead>
                 <tr>
-                    {{#each phrases as |phrase|}}
-                        <td>{{phrase}}</td>
+                    <th colspan="2">SELECT</th>
+                    {{#each selectedLanguages as |language|}}
+                        <th>{{language.label}}</th>
                     {{/each}}
                 </tr>
-            {{/each}}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {{#each availablePhrases as |phrases index|}}
+                    <tr class="{{unless phrases.isSelected 'disabled'}}">
+                        <td>{{#unless index}}<div class="ui ribbon label">{{selectedDocument}}</div>{{/unless}}{{sum index 1}}</td>
+                        <td class="center aligned">
+                            {{ui-checkbox checked=phrases.isSelected onChange=(action (mut phrases.isSelected))}}
+                        </td>
+                        {{#each phrases as |phrase|}}
+                            <td>{{phrase}} &nbsp;</td>
+                        {{/each}}
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
         <div class="sixteen wide column">
             <button class="ui right floated button black" {{action 'next'}}>Next</button>
             <button class="ui right floated button black" {{action 'prev'}}>Prev</button>
