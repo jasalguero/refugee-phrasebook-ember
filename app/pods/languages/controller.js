@@ -2,7 +2,7 @@ import Ember from 'ember';
 import CONSTANTS from "refugee-phrasebook/utils/constants";
 
 const {DOCUMENTS} = CONSTANTS;
-const {get, set, inject, computed, observer} = Ember;
+const {get, inject, computed} = Ember;
 
 export default Ember.Controller.extend({
   /** dependencies */
@@ -20,15 +20,6 @@ export default Ember.Controller.extend({
 
   /** selected languages for this document **/
   selectedLanguages: computed.filterBy('availableLanguages', 'isSelected'),
-
-  /** observer to reset isSelect flag on document change **/
-  selectedDocumentChanged: observer('selectedDocument', function() {
-    Ember.debug('resetting languages');
-    let allLanguages = get(this, 'allLanguages');
-    for (let doc in allLanguages) {
-      allLanguages[doc].setEach('isSelected', false);
-    }
-  }),
 
   actions: {
     /** go to next section */

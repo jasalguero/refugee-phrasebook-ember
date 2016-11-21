@@ -1,8 +1,11 @@
 <div class="languages-section">
     <div class="ui form grid">
-        <div class="row">
-            <div class="section-title">
-                <h1>PHRASES</h1> <div class="subtitle">from {{selectedDocument}} document</div>
+        <div class="sixteen wide column">
+            <div class="ui header section-title">
+                <div class="content">
+                    <h1>PHRASES</h1>
+                    <div class="sub header">from {{selectedDocument}} document</div>
+                </div>
             </div>
         </div>
         <div class="sixteen wide fixed selectable column striped table-container">
@@ -18,12 +21,15 @@
                 <tbody>
                 {{#each availablePhrases as |phrases index|}}
                     <tr class="{{unless phrases.isSelected 'disabled'}}">
-                        <td>{{#unless index}}<div class="ui ribbon label">{{selectedDocument}}</div>{{/unless}}{{sum index 1}}</td>
+                        <td>{{#unless index}}
+                            <div class="ui ribbon label">{{selectedDocument}}</div>{{/unless}}{{sum index 1}}</td>
                         <td class="center aligned">
                             {{ui-checkbox checked=phrases.isSelected onChange=(action (mut phrases.isSelected))}}
                         </td>
                         {{#each phrases as |phrase|}}
-                            <td>{{phrase}} &nbsp;</td>
+                            <td>{{phrase}}</td>
+                        {{else}}
+                            <td>&nbsp;</td>
                         {{/each}}
                     </tr>
                 {{/each}}

@@ -14,6 +14,13 @@ export default Ember.Route.extend({
     });
   },
 
+  /** tell the controller to trigger data initialization needed **/
+  setupController(controller, model) {
+    this._super(controller, model);
+
+    controller.setup();
+  },
+
   /** retrieve the languages for all the docs **/
   model() {
     let sheetsAPI = get(this, 'sheetsApi');
