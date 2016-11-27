@@ -44,6 +44,8 @@ export default Ember.Service.extend({
           this.loadSheetsAPI().then(() => {
             resolve();
           });
+        }, error => {
+          reject(error);
         });
       });
     });
