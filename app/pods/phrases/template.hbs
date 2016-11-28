@@ -20,11 +20,11 @@
                 </thead>
                 <tbody>
                 {{#each availablePhrases as |phrases index|}}
-                    <tr class="{{unless phrases.isSelected 'disabled'}}">
+                    <tr class="{{unless phrases.isSelected 'unselected'}}">
                         <td>{{#unless index}}
                             <div class="ui ribbon label">{{selectedDocument}}</div>{{/unless}}{{sum index 1}}</td>
-                        <td class="center aligned">
-                            {{ui-checkbox checked=phrases.isSelected onChange=(action (mut phrases.isSelected))}}
+                        <td class="center aligned" onclick={{action (toggle "isSelected" phrases)}}>
+                            {{ui-checkbox checked=phrases.isSelected}}
                         </td>
                         {{#each phrases as |phrase|}}
                             <td>{{phrase}}</td>

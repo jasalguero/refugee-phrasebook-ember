@@ -1,38 +1,34 @@
-import Ember from 'ember';
-import CONSTANTS from "refugee-phrasebook/utils/constants";
+import Ember from "ember";
 
-const {DOCUMENTS} = CONSTANTS;
 const {get, set, inject, computed} = Ember;
 
 export default Ember.Controller.extend({
   /** dependencies */
   applicationController: inject.controller('application'),
-  selectedDocument: computed.alias('applicationController.selectedDocument'),
-  allLanguages: computed.alias('applicationController.allLanguages'),
+  icons: computed.oneWay('applicationController.icons'),
 
-  /** available documents */
-  documents: DOCUMENTS,
+  /** flag to check if any icon is selected **/
+  enabledIcons: computed.filterBy('icons', 'isSelected'),
 
-  /** languagse for selected document **/
-  selectedDocLanguages: computed('selectedDocument', 'allLanguages', function() {
-    return get(this, 'allLanguages')[get(this, 'selectedDocument')];
-  }),
+  /** flags for language and blank columns **/
+  englishEnabled: true,
+  arabicEnabled: true,
+  blankEnabled: true,
 
   actions: {
-    /** set a new document as selected */
-    documentSelected(document) {
-      set(this, 'selectedDocument', document);
-    },
-
     /** go to next section */
     next() {
-      this.transitionToRoute('icons');
+      this.transitionToRoute('links');
     },
 
     /** go to previous section */
     prev() {
       this.transitionToRoute('documents');
+    },
 
+    /** toggles selection for all icons **/
+    toggleAllIcons(value) {
+      get(this, 'icons').forEach(icon => set(icon, 'isSelected', value));
     }
   }
 });

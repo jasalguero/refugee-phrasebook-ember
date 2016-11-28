@@ -1,11 +1,12 @@
 import Ember from "ember";
 import CONSTANTS from "refugee-phrasebook/utils/constants";
 
-const {DOCUMENTS} = CONSTANTS;
+const {DOCUMENTS, ICONS} = CONSTANTS;
+const {get} = Ember;
 
 export default Ember.Service.extend({
   /**
-   * Retrieve the phrases from the specified document for the specified languages
+   * Retrieve all the spreadsheets info
    */
   getAllPhrases() {
     const docs = Object.keys(DOCUMENTS);
@@ -15,11 +16,12 @@ export default Ember.Service.extend({
         spreadsheetId: DOCUMENTS[DOC].ID,
         range: `${DOCUMENTS[DOC].SHEET_ID}`
       });
-    })).then((results) => {
+    })).then(results => {
       return this.processSheetsResult(results, docs);
     });
   },
 
+  /** Parse and convert results from Docs sheets into usable models **/
   processSheetsResult(results, docIds) {
     let docs = {};
 
@@ -86,6 +88,47 @@ export default Ember.Service.extend({
       docs[docId] = docObject;
     });
     return docs;
-  }
+  },
 
+  /** Retrieve all the icons info from the spreadsheet **/
+  getIcons() {
+    return gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: ICONS.ID,
+      range: `${ICONS.SHEET_ID}`
+    }).then(results => {
+      return this.processIconsResults(results);
+    });
+  },
+
+  processIconsResults(results) {
+    let rows = get(results, 'result.values');
+
+    let languages = rows[1].map((column, index) => {
+      // languages start in 3rd column
+      if (index > 2) {
+        return {
+          label: column,
+          encoding: rows[2][index]
+        };
+      }
+    });
+
+    return rows.map((row, rowIndex) => {
+      // icons start in 4th row
+      if (rowIndex > 3) {
+        return {
+          svg: row[2],
+          languages: row.map((column, index) => {
+            if (index > 2) {
+              return {
+                value: column,
+                language: languages[index].label,
+                encoding: languages[index].encoding,
+              };
+            }
+          }).compact()
+        };
+      }
+    }).compact();
+  }
 });

@@ -1,7 +1,6 @@
 import Ember from "ember";
 
-const {get, inject} = Ember;
-// const {DOCUMENTS} = CONSTANTS;
+const {get, inject, RSVP} = Ember;
 
 export default Ember.Route.extend({
   gapi: inject.service(),
@@ -14,6 +13,17 @@ export default Ember.Route.extend({
     });
   },
 
+  /** retrieve the languages for all the docs **/
+  model() {
+    let sheetsAPI = get(this, 'sheetsApi');
+    return RSVP.all([sheetsAPI.getAllPhrases(), sheetsAPI.getIcons()]).then(results => {
+      return {
+        documents: results[0],
+        icons: results[1]
+      };
+    });
+  },
+
   /** tell the controller to trigger data initialization needed **/
   setupController(controller, model) {
     this._super(controller, model);
@@ -21,9 +31,4 @@ export default Ember.Route.extend({
     controller.setup();
   },
 
-  /** retrieve the languages for all the docs **/
-  model() {
-    let sheetsAPI = get(this, 'sheetsApi');
-    return sheetsAPI.getAllPhrases();
-  }
 });

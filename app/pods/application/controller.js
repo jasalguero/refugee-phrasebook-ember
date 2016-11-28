@@ -5,8 +5,9 @@ const {get, set, observer, debug} = Ember;
 const {DOCUMENTS} = CONSTANTS;
 
 export default Ember.Controller.extend({
-  /** languages for all documents **/
-  documents: Ember.computed.alias('model'),
+  /** model **/
+  documents: Ember.computed.alias('model.documents'),
+  icons: Ember.computed.alias('model.icons'),
 
   /** user selected document **/
   selectedDocument: DOCUMENTS.SHORT.LABEL,
@@ -20,6 +21,7 @@ export default Ember.Controller.extend({
   /** initialize data **/
   setup() {
     this.forceEnglishLanguage();
+    this.preselectIcons();
   },
 
   /** make english always selected and 'not unselectable' **/
@@ -31,8 +33,12 @@ export default Ember.Controller.extend({
 
     allLanguages.forEach( docLanguages => {
       set(docLanguages[0], 'isSelected', true);
-      set(docLanguages[0], 'isReadOnly', true);
     });
+  },
+
+  /** sets the 12 first icons as selected and select all languages**/
+  preselectIcons() {
+    get(this, 'icons').forEach((icon, index) => set(icon, 'isSelected', index < 12));
   },
 
   /** observer to reset isSelect flag on document change **/

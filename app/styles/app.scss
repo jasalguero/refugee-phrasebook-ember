@@ -2,6 +2,7 @@
 @import "tab_menu";
 @import "sections";
 @import "languages";
+@import "icons";
 
 
 html, body {
@@ -20,4 +21,10 @@ label, p, a, h1, div {
 
 .ui.container {
   width: 100%;
+}
+
+table {
+  tr.unselected td {
+    color: rgba(40,40,40,.3);
+  }
 }
