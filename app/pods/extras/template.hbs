@@ -1,1 +1,30 @@
-extras
+<div class="extras-section">
+    <div class="ui form grid">
+        <div class="sixteen wide column">
+            <div class="ui header section-title">
+                <div class="content">
+                    <h1>EXTRAS</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="ui sixteen wide column">
+            <button class="ui floated button black" {{action "generateJSON"}}>Generate JSON</button>
+        </div>
+    </div>
+</div>
+
+{{#ui-modal name="json-preview" class="json-preview-modal" onApprove=(action 'closeModal') }}
+    <i class="close icon"></i>
+    <div class="description">
+        {{{generatedJSON}}}
+    </div>
+    <div class="actions">
+        <div class="ui positive right labeled icon button">
+            Close
+        </div>
+    </div>
+{{/ui-modal}}
+
