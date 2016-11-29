@@ -19,7 +19,7 @@
 {{#ui-modal name="json-preview" class="json-preview-modal" onApprove=(action 'closeModal') }}
     <i class="close icon"></i>
     <div class="description">
-        {{{generatedJSON}}}
+        <pre id="json-preview">{{generatedJSON}}</pre>
     </div>
     <div class="actions">
         <div class="ui positive right labeled icon button">

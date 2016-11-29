@@ -18,6 +18,8 @@ export default Ember.Controller.extend({
   arabicIconsEnabled: computed.oneWay('iconsController.arabicEnabled'),
   blankIconsEnabled: computed.oneWay('iconsController.blankEnabled'),
 
+  generatedJSON: {},
+
   actions: {
     /** **/
     generateJSON() {
@@ -54,13 +56,14 @@ export default Ember.Controller.extend({
         };
       });
 
-      set(this, 'generatedJSON', JSON.stringify(json));
+      set(this, 'generatedJSON', JSON.stringify(json, undefined, 2));
       console.log('GENERATED JSON', json);
-      $('.ui.json-preview.modal').modal('show');
+
+      $('.ui.json-preview-modal.modal').modal('show');
     },
 
     closeModal() {
-      this.$('.ui.json-preview.modal').modal('hide');
+      $('.ui.json-preview.modal').modal('hide');
 
     }
   }
