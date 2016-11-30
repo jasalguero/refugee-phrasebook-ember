@@ -42,7 +42,7 @@ export default Ember.Controller.extend({
 
       json.icons = get(this, 'icons').map(icon => {
         return {
-          icon: get(icon, 'svg'),
+          icon: encodeURIComponent(get(icon, 'svg')),
           captions: get(icon, 'languages').map((language, index) => {
             // only pass arabic and english if they are selected
             if ((index === 0 && get(this, 'englishIconsEnabled')) || (index === 1 && get(this, 'arabicIconsEnabled'))) {
