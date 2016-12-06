@@ -1,4 +1,5 @@
 import Ember from "ember";
+import CONSTANTS from "refugee-phrasebook/utils/constants";
 
 const {get, set, inject, computed, $} = Ember;
 
@@ -17,6 +18,9 @@ export default Ember.Controller.extend({
   englishIconsEnabled: computed.oneWay('iconsController.englishEnabled'),
   arabicIconsEnabled: computed.oneWay('iconsController.arabicEnabled'),
   blankIconsEnabled: computed.oneWay('iconsController.blankEnabled'),
+
+  /** extra options **/
+  drawings: CONSTANTS.COLORING_DRAWINGS,
 
   generatedJSON: {},
 
@@ -40,9 +44,10 @@ export default Ember.Controller.extend({
         phrases: get(this, 'phrases').map(phrase => phrase.map(idiom => idiom))
       });
 
+      // icons
       json.icons = get(this, 'icons').map(icon => {
         return {
-          icon: encodeURIComponent(get(icon, 'svg')),
+          icon: get(icon, 'svg').replace(/</gi, '\\u003c').replace(/>/gi, '\\u003e'),
           captions: get(icon, 'languages').map((language, index) => {
             // only pass arabic and english if they are selected
             if ((index === 0 && get(this, 'englishIconsEnabled')) || (index === 1 && get(this, 'arabicIconsEnabled'))) {
@@ -55,6 +60,13 @@ export default Ember.Controller.extend({
           show_empty_caption: get(this, 'blankIconsEnabled')
         };
       });
+
+      // extra
+      json.extras = {
+        drawings: get(this, 'drawings').filter(drawing => get(drawing, 'isSelected'))
+          .compact()
+          .map(drawing => ({label: drawing.label, url: drawing.url}))
+      };
 
       set(this, 'generatedJSON', JSON.stringify(json, undefined, 2));
       console.log('GENERATED JSON', json);

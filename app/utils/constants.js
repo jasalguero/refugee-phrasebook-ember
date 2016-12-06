@@ -39,5 +39,10 @@ export default {
     SHEET_ID: 'Sheet1'
   },
 
-  STARTING_PHRASE_ROW: 5
+  STARTING_PHRASE_ROW: 5,
+
+  COLORING_DRAWINGS: [
+    {label: 'Petals', url: 'http://www.refugeephrasebook.de/img/coloring/petals.jpg'},
+    {label: 'Mandala', url: 'http://www.refugeephrasebook.de/img/coloring/mandala.jpg'}
+  ]
 };

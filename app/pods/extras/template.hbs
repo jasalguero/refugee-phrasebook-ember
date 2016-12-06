@@ -9,6 +9,28 @@
         </div>
     </div>
 
+    <div class="ui row">
+        <h4>COLORING DRAWINGS</h4>
+    </div>
+
+    <div class="ui items">
+        {{#each drawings as |drawing|}}
+            <div class="item">
+
+                <div class="ui tiny image">
+                    <img src={{drawing.url}}>
+                </div>
+                <div class="middle aligned content">
+                    <div class="header">{{ui-checkbox
+                            label=drawing.label
+                            checked=drawing.isSelected
+                            onChange=(action (mut drawing.isSelected))
+                    }}</div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+
     <div class="row">
         <div class="ui sixteen wide column">
             <button class="ui floated button black" {{action "generateJSON"}}>Generate JSON</button>
