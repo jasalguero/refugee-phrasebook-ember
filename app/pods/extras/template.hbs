@@ -33,7 +33,11 @@
 
     <div class="row">
         <div class="ui sixteen wide column">
-            <button class="ui floated button black" {{action "generateJSON"}}>Generate JSON</button>
+            <form id="printForm" method="POST" target={{SUBMIT_PDF_FORM}}>
+                {{input type="hidden" value=generatedJSON name="json"}}
+                <button class="ui floated button black" {{action "generateJSON"}}>Generate JSON</button>
+                <button class="ui floated button black" {{action "printPDF"}}>Print PDF</button>
+            </form>
         </div>
     </div>
 </div>

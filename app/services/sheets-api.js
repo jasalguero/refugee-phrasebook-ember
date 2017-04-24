@@ -71,7 +71,10 @@ export default Ember.Service.extend({
 
           // make sure is not an empty row
           if (phrases.reduce((hasValues, phrase) => {
-              return hasValues || !Ember.isNone(phrase);
+              if (hasValues || !Ember.isEmpty(phrase)) {
+                // console.log(phrase);
+              }
+              return hasValues || !Ember.isEmpty(phrase);
             }, false)) {
             phrasesCollection.push(phrases);
           } else {
@@ -82,7 +85,7 @@ export default Ember.Service.extend({
 
       let docObject = {
         languages: languages.compact(),
-        phrases: phrasesCollection
+        phrases: phrasesCollection.filter(p => p.length > 0)
       };
       console.log('docObject --->', docId, docObject);
       docs[docId] = docObject;
