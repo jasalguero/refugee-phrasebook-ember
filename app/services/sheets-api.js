@@ -30,7 +30,6 @@ export default Ember.Service.extend({
       let languages = [];
       let phrasesCollection = [];
 
-
       // get document results
       let sheetRows = results[index].result.values;
       sheetRows.forEach((row, rowNum) => {
@@ -72,7 +71,6 @@ export default Ember.Service.extend({
           // make sure is not an empty row
           if (phrases.reduce((hasValues, phrase) => {
               if (hasValues || !Ember.isEmpty(phrase)) {
-                // console.log(phrase);
               }
               return hasValues || !Ember.isEmpty(phrase);
             }, false)) {
@@ -83,9 +81,16 @@ export default Ember.Service.extend({
         }
       });
 
+      // Google API shortens the values arrays when the last columns are empty, so we have to fill them with empty strings when
+      // they are shorter
+      let parsedPhrases = phrasesCollection.filter(p => p.length > 0);
+      parsedPhrases = parsedPhrases.map(p => {
+        return p.concat(new Array(languages.length - p.length).fill(''));
+      });
+
       let docObject = {
         languages: languages.compact(),
-        phrases: phrasesCollection.filter(p => p.length > 0)
+        phrases: parsedPhrases
       };
       console.log('docObject --->', docId, docObject);
       docs[docId] = docObject;
